@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 
 import Loader from './components/Loader/Loader';
 import Table from './components/Table/Table';
+import { sortBy } from './custom-functions';
 
 class App extends Component {
 
   state = {
     data: [],
-    isLoading: false
+    isLoading: false,
+    sort: 'asc', // desc
+    sortField: 'id'
   }
 
   async componentDidMount () {
@@ -16,12 +19,44 @@ class App extends Component {
     
     const response = await fetch(`http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}`);
     const data = await response.json();
-    
+    const sortedData = sortBy(data, this.state.sortField, this.state.sort)
+
     this.setState({ 
-      data,
+      data: sortedData,
       isLoading: false
     })
   }
+
+  onSort = sortField => {
+  
+    const clonedData = [...this.state.data];
+    const sortType = this.state.sort === 'asc' ? 'desc' : 'asc';
+     const sortedData = sortBy(clonedData, sortField, sortType);
+
+    this.setState({
+      data: sortedData,
+      sort: sortType,
+      sortField
+    })
+    
+  }
+
+  // SortBy function
+  // sortBy (collection, sortField, order) {
+
+  //   const sortTypeNum = order === 'asc'? 1 : -1;
+  
+  //   const sortedByField = collection.sort((a, b) => {
+  //     if (a[sortField] > b[sortField]) {
+  //     return sortTypeNum;
+  //   }
+  //     if(a[sortField] < b[sortField]) {
+  //       return -sortTypeNum;
+  //     }
+  //     return 0;
+  //   })
+  //   return sortedByField;
+  // }
 
   render() {
     const isLoading = this.state.isLoading;
@@ -31,7 +66,11 @@ class App extends Component {
         { 
           isLoading 
           ? <Loader />
-          : <Table data={this.state.data} />
+          : <Table 
+            data={this.state.data}
+            onSort={this.onSort} 
+            sort={this.state.sort}
+            sortField={this.state.sortField}/>
         }
       </div>
     );

@@ -4,11 +4,21 @@ export default (props) => (
     <table className="table table-dark">
         <thead>
             <tr>
-            <th scope="col">ID</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Pnone</th>
+            <th scope="col" onClick={() => {props.onSort('id')}}>
+                ID{props.sortField === 'id' ? <small>{props.sort}</small> : null}
+            </th>
+            <th scope="col" onClick={() => {props.onSort('firstName')}}>
+                First Name {props.sortField === 'firstName' ? <small>{props.sort}</small> : null}
+            </th>
+            <th scope="col" onClick={() => {props.onSort('lastName')}}>
+                Last Name {props.sortField === 'lastName' ? <small>{props.sort}</small> : null}
+            </th>
+            <th scope="col" onClick={() => {props.onSort('email')}}>
+                Email {props.sortField === 'email' ? <small>{props.sort}</small> : null}
+            </th>
+            <th scope="col" onClick={() => {props.onSort('phone')}}>
+                Pnone {props.sortField === 'phone' ? <small>{props.sort}</small> : null}
+            </th>
             </tr>
         </thead>
         <tbody>
