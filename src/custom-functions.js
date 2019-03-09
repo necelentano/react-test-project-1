@@ -2,7 +2,7 @@ export function sortBy (collection, sortField, order) {
 
     const sortTypeNum = order === 'asc'? 1 : -1;
   
-    const sortedByField = collection.sort((a, b) => {
+    return collection.sort((a, b) => {
       if (a[sortField] > b[sortField]) {
       return sortTypeNum;
     }
@@ -11,5 +11,4 @@ export function sortBy (collection, sortField, order) {
       }
       return 0;
     })
-    return sortedByField;
   }
