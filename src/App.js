@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Loader from './components/Loader/Loader';
 import Table from './components/Table/Table';
+import Details from './components/Details/Details';
 import { sortBy } from './custom-functions';
 
 class App extends Component {
@@ -10,7 +11,8 @@ class App extends Component {
     data: [],
     isLoading: false,
     sort: 'asc', // desc
-    sortField: 'id'
+    sortField: 'id',
+    row: null
   }
 
   async componentDidMount () {
@@ -41,6 +43,10 @@ class App extends Component {
     
   }
 
+  onRowSelect = row => {
+    this.setState({row})
+  }
+
   render() {
     const isLoading = this.state.isLoading;
     
@@ -53,7 +59,13 @@ class App extends Component {
             data={this.state.data}
             onSort={this.onSort} 
             sort={this.state.sort}
-            sortField={this.state.sortField}/>
+            sortField={this.state.sortField}
+            onRowSelect={this.onRowSelect}/>
+        }
+        {
+          this.state.row
+          ? <Details person={this.state.row}/>
+          : null
         }
       </div>
     );

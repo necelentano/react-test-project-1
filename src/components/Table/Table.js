@@ -22,13 +22,13 @@ export default (props) => (
             </tr>
         </thead>
         <tbody>
-            {props.data.map(({id, firstName, lastName, email, phone}) => (
-                <tr key={`${id}-${email}`}>
-                    <td>{id}</td>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{email}</td>
-                    <td>{phone}</td>
+            {props.data.map((item) => (
+                <tr key={`${item.id}-${item.email}`} onClick={() => {props.onRowSelect(item)}}>
+                    <td>{item.id}</td>
+                    <td>{item.firstName}</td>
+                    <td>{item.lastName}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
                 </tr>
             ))}
         </tbody>
