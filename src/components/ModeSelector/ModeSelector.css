@@ -1,0 +1,12 @@
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 0;
+  }
+  
+  .box button {
+    width: 300px;
+    height: 100px;
+    margin: 0 10px;
+  }
