@@ -6,14 +6,14 @@ export default ({person}) => {
     
     return (
         <div>
-            <p>User: <b>{firstName + ' ' +lastName}</b></p>
-            <p>Description: <br />
+            <p><b>User:</b> {firstName + ' ' +lastName}</p>
+            <p><b>Description:</b> <br />
                 {description}
             </p>
-            <p>Address: <b>{streetAddress}</b></p>
-            <p>City <b>{city}</b></p>
-            <p>State: <b>{state}</b></p>
-            <p>ZIP: <b>{zip}</b></p>
+            <p><b>Address:</b> {streetAddress}</p>
+            <p><b>City:</b> {city}</p>
+            <p><b>State:</b> {state}</p>
+            <p><b>ZIP:</b> {zip}</p>
         </div>
     )
 }
