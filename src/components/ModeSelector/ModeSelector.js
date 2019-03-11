@@ -10,14 +10,12 @@ export default props => {
 
     return (
         <div className='box'>
-            
-                <button 
-                    className="btn btn-success" 
-                    onClick={() => {props.modeSelectHandler(smallData)}}>32 elements</button>
-                <button 
-                    className="btn btn-danger" 
-                    onClick={() => {props.modeSelectHandler(bigData)}}>1000 elements</button>
-            
+            <button 
+                className="btn btn-success" 
+                onClick={() => {props.modeSelectHandler(smallData)}}>32 elements</button>
+             <button 
+                className="btn btn-danger" 
+                onClick={() => {props.modeSelectHandler(bigData)}}>1000 elements</button>
         </div>
     )
 }
