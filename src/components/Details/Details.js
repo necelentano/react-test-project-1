@@ -6,14 +6,14 @@ export default ({person}) => {
     
     return (
         <div>
-            <p>Выбран пользователь: <b>{firstName + ' ' +lastName}</b></p>
-            <p>Описание: <br />
+            <p>User: <b>{firstName + ' ' +lastName}</b></p>
+            <p>Description: <br />
                 {description}
             </p>
-            <p>Адресс проживания: <b>{streetAddress}</b></p>
-            <p>Город: <b>{city}</b></p>
-            <p>Провинция/Штат: <b>{state}</b></p>
-            <p>Индекс: <b>{zip}</b></p>
+            <p>Address: <b>{streetAddress}</b></p>
+            <p>City <b>{city}</b></p>
+            <p>State: <b>{state}</b></p>
+            <p>ZIP: <b>{zip}</b></p>
         </div>
     )
 }
