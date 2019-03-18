@@ -15,7 +15,8 @@ class App extends Component {
     isModeSelected: false,
     sort: 'asc', // desc
     sortField: 'id',
-    row: null
+    row: null,
+    currentPage: 0
   }
 
   async fetchData (url) {
@@ -56,8 +57,14 @@ class App extends Component {
 
     this.fetchData(url);
   }
+
+  handlePageClick = ({selected}) => {
+    this.setState({currentPage: selected})
+  }
+
   render() {
     const {isLoading, isModeSelected} = this.state;
+    const pages = 50;
 
     if (!isModeSelected) {
       return (
@@ -80,19 +87,24 @@ class App extends Component {
             onRowSelect={this.onRowSelect}/>
         }
         {
-          this.state.data.length
+          this.state.data.length > pages
             ? <ReactPaginate
                 previousLabel={'previous'}
                 nextLabel={'next'}
                 breakLabel={'...'}
                 breakClassName={'break-me'}
-                pageCount={this.state.pageCount}
+                pageCount={20}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={this.handlePageClick}
                 containerClassName={'pagination'}
-                subContainerClassName={'pages pagination'}
                 activeClassName={'active'}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
               /> : null
         }
         {
