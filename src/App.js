@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactPaginate from 'react-paginate';
 
 import ModeSelector from './components/ModeSelector/ModeSelector';
 import Loader from './components/Loader/Loader';
@@ -77,6 +78,22 @@ class App extends Component {
             sort={this.state.sort}
             sortField={this.state.sortField}
             onRowSelect={this.onRowSelect}/>
+        }
+        {
+          this.state.data.length
+            ? <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={'pagination'}
+                subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+              /> : null
         }
         {
           this.state.row
