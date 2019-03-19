@@ -5,7 +5,7 @@ import ModeSelector from './components/ModeSelector/ModeSelector';
 import Loader from './components/Loader/Loader';
 import Table from './components/Table/Table';
 import Details from './components/Details/Details';
-import { sortBy } from './custom-functions';
+import { sortBy, chunk } from './custom-functions';
 
 class App extends Component {
 
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   render() {
-    const {isLoading, isModeSelected} = this.state;
+    const {isLoading, isModeSelected, data, currentPage} = this.state;
     const pages = 50;
 
     if (!isModeSelected) {
@@ -73,6 +73,7 @@ class App extends Component {
         </div>
       )
     }
+    const visibleData = chunk(data, pages)[currentPage]
     
     return (
       <div className="container">
@@ -80,7 +81,7 @@ class App extends Component {
           isLoading 
           ? <Loader />
           : <Table 
-            data={this.state.data}
+            data={visibleData}
             onSort={this.onSort} 
             sort={this.state.sort}
             sortField={this.state.sortField}
