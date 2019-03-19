@@ -1,4 +1,4 @@
-export function sortBy (collection, sortField, order) {
+export const sortBy = (collection, sortField, order) => {
 
     const sortTypeNum = order === 'asc'? 1 : -1;
   
@@ -11,4 +11,16 @@ export function sortBy (collection, sortField, order) {
       }
       return 0;
     })
+  }
+
+  export const chunk = (array, size) => {
+    if (array.length === 0 || size < 1) {
+      return []
+    }
+    let newArr = [];
+  
+    for(let i = 0; i <= array.length; i += size) {
+      newArr.push(array.slice(i, size + i))
+    }
+    return newArr;
   }
