@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import ModeSelector from './components/ModeSelector/ModeSelector';
 import Loader from './components/Loader/Loader';
 import Table from './components/Table/Table';
+import TableSearch from './components/TableSearch/TableSearch';
 import Details from './components/Details/Details';
 import { sortBy, chunk } from './custom-functions';
 
@@ -16,7 +17,8 @@ class App extends Component {
     sort: 'asc', // desc
     sortField: 'id',
     row: null,
-    currentPage: 0
+    currentPage: 0,
+    search: ''
   }
 
   async fetchData (url) {
@@ -62,9 +64,31 @@ class App extends Component {
     this.setState({currentPage: selected})
   }
 
+  SearchHandler = searchString => {
+    this.setState({
+      search: searchString,
+      currentPage: 0
+    })
+  }
+
+  getFilteredData() {
+    const {data, search} = this.state;
+
+    return !search ? data 
+      : data.filter(item => {
+        return item['firstName'].toLowerCase().includes(search.toLowerCase())
+          || item['lastName'].toLowerCase().includes(search.toLowerCase())
+          || item['email'].toLowerCase().includes(search.toLowerCase())
+      })
+  }
+
   render() {
-    const {isLoading, isModeSelected, data, currentPage} = this.state;
+    const {isLoading, isModeSelected, currentPage} = this.state;
     const pages = 50;
+
+    const filteredData = this.getFilteredData();
+    const pageCount = Math.ceil(filteredData.length / pages);
+    const visibleData = chunk(filteredData, pages)[currentPage];
 
     if (!isModeSelected) {
       return (
@@ -73,19 +97,21 @@ class App extends Component {
         </div>
       )
     }
-    const visibleData = chunk(data, pages)[currentPage]
-    
+
     return (
       <div className="container">
         { 
           isLoading 
-          ? <Loader />
-          : <Table 
-            data={visibleData}
-            onSort={this.onSort} 
-            sort={this.state.sort}
-            sortField={this.state.sortField}
-            onRowSelect={this.onRowSelect}/>
+            ? <Loader />
+            : <Fragment>
+                <TableSearch onSearch={this.SearchHandler}/>
+                <Table 
+                  data={visibleData}
+                  onSort={this.onSort} 
+                  sort={this.state.sort}
+                  sortField={this.state.sortField}
+                  onRowSelect={this.onRowSelect}/>
+              </Fragment>
         }
         {
           this.state.data.length > pages
@@ -94,7 +120,7 @@ class App extends Component {
                 nextLabel={'next'}
                 breakLabel={'...'}
                 breakClassName={'break-me'}
-                pageCount={20}
+                pageCount={pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={this.handlePageClick}
@@ -106,12 +132,13 @@ class App extends Component {
                 nextClassName="page-item"
                 previousLinkClassName="page-link"
                 nextLinkClassName="page-link"
+                forcePage={currentPage}
               /> : null
         }
         {
           this.state.row
-          ? <Details person={this.state.row}/>
-          : null
+            ? <Details person={this.state.row}/>
+            : null
         }
       </div>
     );
