@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class TableSearch extends Component {
 
@@ -20,4 +21,8 @@ export default class TableSearch extends Component {
             </div>
         )
     }
+}
+
+TableSearch.propTypes = {
+    onSearch: PropTypes.func.isRequired
 }
