@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default (props) => (
+const Table = (props) => (
     <table className="table table-dark">
         <thead>
             <tr>
@@ -34,3 +35,13 @@ export default (props) => (
         </tbody>
     </table>
 )
+
+Table.propTypes = {
+    data: PropTypes.array.isRequired,
+    onRowSelect: PropTypes.func.isRequired,
+    onSort: PropTypes.func.isRequired,
+    sort: PropTypes.string.isRequired,
+    sortField: PropTypes.string.isRequired
+}
+
+export default Table;
