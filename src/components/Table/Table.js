@@ -37,7 +37,20 @@ const Table = (props) => (
 )
 
 Table.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+        address: PropTypes.shape({
+            city: PropTypes.string.isRequired,
+            state: PropTypes.string.isRequired,
+            streetAddress: PropTypes.string.isRequired,
+            zip: PropTypes.string.isRequired
+        }),
+        description: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        phone: PropTypes.string.isRequired
+    })).isRequired,
     onRowSelect: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
     sort: PropTypes.string.isRequired,
