@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './ModeSelector.css';
 
-export default props => {
+const ModeSelector = props => {
 
     const smallData = `http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}`;
 
@@ -19,3 +20,9 @@ export default props => {
         </div>
     )
 }
+
+ModeSelector.propTypes = {
+    modeSelectHandler: PropTypes.func.isRequired
+}
+
+export default ModeSelector;
