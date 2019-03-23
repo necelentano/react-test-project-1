@@ -23,14 +23,19 @@ class App extends Component {
 
   async fetchData (url) {
     
-    const response = await fetch(url);
-    const data = await response.json();
-    const sortedData = sortBy(data, this.state.sortField, this.state.sort)
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const sortedData = sortBy(data, this.state.sortField, this.state.sort)
 
-    this.setState({ 
-      data: sortedData,
-      isLoading: false
-    })
+      this.setState({ 
+        data: sortedData,
+        isLoading: false
+      })
+    } catch(err) {
+      throw new Error("Can't get data from API"); 
+    }
+    
   }
 
   onSort = sortField => {
